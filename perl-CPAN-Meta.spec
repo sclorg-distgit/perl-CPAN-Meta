@@ -3,7 +3,7 @@
 Name:           %{?scl_prefix}perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
 Version:        2.150010
-Release:        451%{?dist}
+Release:        452%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CPAN-Meta
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-%{version}.tar.gz
@@ -68,7 +68,7 @@ structure stored in the META.json file is described in CPAN::Meta::Spec.
 %setup -q -n CPAN-Meta-%{version}
 
 # silence rpmlint warnings
-%{?scl:scl enable %{scl} '}perl -MConfig -pi -e %{?scl:'"}'%{?scl:"'}s,^#!.*perl,$Config{startperl},%{?scl:'"}'%{?scl:"'} t/*.t%{?scl:'}
+%{?scl:scl enable %{scl} '}perl -MConfig -pi -e %{?scl:'"}'%{?scl:"'}s,^#!.*perl,$Config{startperl},%{?scl:'"}'%{?scl:"'} t/*.t t/parse-cpan-meta/*.t%{?scl:'}
 
 %build
 %{?scl:scl enable %{scl} '}perl Makefile.PL INSTALLDIRS=vendor && make %{?_smp_mflags}%{?scl:'}
@@ -102,6 +102,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/Parse::CPAN::Meta.3*
 
 %changelog
+* Wed Mar 25 2020 Petr Pisar <ppisar@redhat.com> - 2.150010-452
+- Normalize shebangs in all tests (bug #1817109)
+
 * Fri Dec 20 2019 Jitka Plesnikova <jplesnik@redhat.com> - 2.150010-451
 - SCL
 
